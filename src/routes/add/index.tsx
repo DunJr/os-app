@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Title } from "./styles";
 
-export const CreateServiceOrders = () => {
-  const [response, setResponse] = useState(null);
+export const CreateServiceOrders: React.FC = () => {
+  const [response, setResponse] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     customerName: "",
     purchaseDate: "",
@@ -27,7 +27,9 @@ export const CreateServiceOrders = () => {
     obs: "",
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -35,13 +37,22 @@ export const CreateServiceOrders = () => {
     });
   };
 
-  const handlePostRequest = async () => {
+  const handlePostRequest = async (): Promise<void> => {
     const url = "https://cadastro-os-cors.onrender.com/serviceOrders";
 
     try {
+      const token = localStorage.getItem("authToken");
+
+      if (!token) {
+        console.error("Token not available. Redirect to login.");
+        // Handle the case where the token is not available (e.g., redirect to login)
+        return;
+      }
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
@@ -54,7 +65,7 @@ export const CreateServiceOrders = () => {
       const responseBody = await response.text();
       const responseData = responseBody ? JSON.parse(responseBody) : null;
 
-      setResponse(responseData);
+      setResponse(JSON.stringify(responseData));
     } catch (error) {
       console.error("Error:", error);
 

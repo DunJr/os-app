@@ -1,9 +1,11 @@
+import Header from "../../components/header";
 import { Container, PageLink } from "./syles";
 
 export const Root = () => {
   return (
     <>
       <Container>
+        <Header />
         <ul>
           <li>
             <PageLink href={`/listServiceOrders`}>
