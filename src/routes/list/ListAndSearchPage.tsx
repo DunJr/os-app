@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // SearchServiceOrders.tsx
 import React, { useEffect, useState } from "react";
-import { iServiceOrder } from "../../components/card/types";
-import { Card } from "../../components/card";
+import { iServiceOrder } from "../../components/card/types.ts";
+import { Card } from "../../components/card/index.tsx";
 import { Title } from "./styles.ts";
 import { getToken } from "../../services/authService.ts";
 
