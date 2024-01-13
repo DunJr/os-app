@@ -15,25 +15,20 @@ export const ListServiceOrders: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = getToken(); // Retrieve the token from your authentication logic
+        const token = getToken();
 
         if (!token) {
-          // Handle the case where the token is not available (e.g., redirect to login)
           console.error("Token not available. Redirect to login.");
           return;
         }
 
-        const response = await fetch(
-          `${API_URL}${filter ? `?search=${filter}` : ""}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}${filter ? filter : ""}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (!response.ok) {
-          // Handle the case where the request was not successful
           console.error(`Request failed with status ${response.status}`);
           return;
         }
@@ -45,7 +40,7 @@ export const ListServiceOrders: React.FC = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        setLoading(false); // Set loading to false regardless of success or failure
+        setLoading(false);
       }
     };
 
