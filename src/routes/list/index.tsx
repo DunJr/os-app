@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { iServiceOrder } from "../../components/card/types";
 import { Card } from "../../components/card";
 import { Title } from "./styles.ts";
-import axios from "axios";
 import { getToken } from "../../services/authService.ts";
 
 const API_URL = "https://cadastro-os-cors.onrender.com/serviceOrders?search=";
