@@ -14,6 +14,11 @@ export const Container = styled.nav`
   }
 `;
 
+export const LinkList = styled.ul`
+  display: flex;
+  gap: 2rem;
+`;
+
 export const PageLink = styled.a`
   display: inline-block;
   text-decoration: none;
