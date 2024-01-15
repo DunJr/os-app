@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { PageContainer, Title, PageContent } from "./styles";
 import { Header } from "../../components/header";
 
-export const CreateServiceOrders: React.FC = () => {
+export const EditServiceOrder: React.FC = () => {
   const [response, setResponse] = useState<string | null>(null);
+  const [id, setId] = useState<string | null>("");
   const [formData, setFormData] = useState({
     customerName: "",
     purchaseDate: "",
@@ -38,8 +39,15 @@ export const CreateServiceOrders: React.FC = () => {
     });
   };
 
+  const handleIdSelection = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const value = event.target.value;
+    setId(value);
+  };
+
   const handlePostRequest = async (): Promise<void> => {
-    const url = "https://cadastro-os-cors.onrender.com/serviceOrders";
+    const url = `https://cadastro-os-cors.onrender.com/serviceOrders/${id}`;
 
     try {
       const token = localStorage.getItem("authToken");
@@ -51,7 +59,7 @@ export const CreateServiceOrders: React.FC = () => {
       }
 
       const response = await fetch(url, {
-        method: "POST",
+        method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -81,7 +89,8 @@ export const CreateServiceOrders: React.FC = () => {
     <PageContent>
       <Header />
       <PageContainer>
-        <Title>Criar ordem de serviço</Title>
+        <Title>Editar ordem de serviço</Title>
+        <input type="text" onChange={handleIdSelection} />
         <form>
           <h2>Informações do cliente</h2>
           <div>
@@ -297,7 +306,7 @@ export const CreateServiceOrders: React.FC = () => {
             </label>
           </div>
           <button type="button" onClick={handlePostRequest}>
-            Make POST Request
+            Make PUT Request
           </button>
           {response && <p>Response: {JSON.stringify(response)}</p>}
         </form>

@@ -50,3 +50,5 @@ export const Card: React.FC<CardProps> = ({ orders }) => {
     </>
   );
 };
+
+export default Card;
