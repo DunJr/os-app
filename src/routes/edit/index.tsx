@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { PageContainer, Title, PageContent } from "./styles";
 import { Header } from "../../components/header";
+import { getToken } from "../../services/authService";
 
 export const EditServiceOrder: React.FC = () => {
-  const [response, setResponse] = useState<string | null>(null);
   const [id, setId] = useState<string | null>("");
   const [formData, setFormData] = useState({
     customerName: "",
@@ -43,7 +43,70 @@ export const EditServiceOrder: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     const value = event.target.value;
-    setId(value);
+    setId(value || ""); // Set to an empty string if value is undefined
+  };
+
+  const handleGetRequest = async () => {
+    const API_URL = `https://cadastro-os-cors.onrender.com/serviceOrdersId?search=`;
+
+    try {
+      const token = getToken();
+
+      if (!token) {
+        console.error("Token not available. Redirect to login.");
+        return;
+      }
+
+      const response = await fetch(`${API_URL + id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.error(`Request failed with status ${response.status}`);
+        return;
+      }
+
+      const responseData = await response.json();
+
+      if (responseData.length > 0) {
+        // Extract the first element of the array
+        const data = responseData[0];
+
+        // Map keys to match the state structure
+        const mappedData = {
+          customerName: data.customername,
+          purchaseDate: data.purchasedate,
+          customerPhone: data.customerphone,
+          olhoEsquerdoDP: data.olhoesquerdodp,
+          olhoDireitoDP: data.olhodireitodp,
+          longeODEsferico: data.longeodesferico,
+          longeODCilindro: data.longeodcilindro,
+          longeODEixo: data.longeodeixo,
+          longeOEEsferico: data.longeoeesferico,
+          longeOECilindro: data.longeoecilindro,
+          longeOEEixo: data.longeoeeixo,
+          pertoODEsferico: data.pertoodesferico,
+          pertoODCilindro: data.pertoodcilindro,
+          pertoODEixo: data.pertoodeixo,
+          pertoOEEsferico: data.pertooeesferico,
+          pertoOECilindro: data.pertooecilindro,
+          pertoOEEixo: data.pertooeeixo,
+          addEsquerdo: data.addesquerdo,
+          addDireito: data.adddireito,
+          tratamentosLentes: data.tratamentoslentes,
+          obs: data.obs,
+        };
+
+        // Update the state with the mapped data
+        setFormData(mappedData);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      console.log("Ok");
+    }
   };
 
   const handlePostRequest = async (): Promise<void> => {
@@ -70,11 +133,6 @@ export const EditServiceOrder: React.FC = () => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
-      const responseBody = await response.text();
-      const responseData = responseBody ? JSON.parse(responseBody) : null;
-
-      setResponse(JSON.stringify(responseData));
     } catch (error) {
       console.error("Error:", error);
 
@@ -90,7 +148,13 @@ export const EditServiceOrder: React.FC = () => {
       <Header />
       <PageContainer>
         <Title>Editar ordem de serviço</Title>
-        <input type="text" onChange={handleIdSelection} />
+        <form action="">
+          Selecionar IS por id
+          <input type="text" onChange={handleIdSelection} />
+          <button type="button" onClick={handleGetRequest}>
+            Confirmar
+          </button>
+        </form>
         <form>
           <h2>Informações do cliente</h2>
           <div>
@@ -308,7 +372,6 @@ export const EditServiceOrder: React.FC = () => {
           <button type="button" onClick={handlePostRequest}>
             Make PUT Request
           </button>
-          {response && <p>Response: {JSON.stringify(response)}</p>}
         </form>
       </PageContainer>
     </PageContent>

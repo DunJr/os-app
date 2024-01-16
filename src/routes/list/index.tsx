@@ -48,6 +48,7 @@ export const ListServiceOrders: React.FC = () => {
 
   useEffect(() => {
     applyFilter(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter, data]);
 
   const applyFilter = (orders: iServiceOrder[]) => {
