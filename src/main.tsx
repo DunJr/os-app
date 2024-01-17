@@ -13,6 +13,7 @@ import { CreateServiceOrders } from "./routes/add";
 import { Login } from "./routes/login/inde"; // Import your Login component
 import { getToken } from "./services/authService"; // Import your authentication service
 import { EditServiceOrder } from "./routes/edit";
+import { DeleteServiceOrder } from "./routes/delete";
 
 const isAuthenticated = () => {
   // Check if a valid token exists
@@ -45,6 +46,14 @@ const router = createBrowserRouter([
     path: "/editServiceOrder",
     element: isAuthenticated() ? (
       <EditServiceOrder />
+    ) : (
+      <Navigate to="/login" />
+    ),
+  },
+  {
+    path: "/deleteServiceOrder",
+    element: isAuthenticated() ? (
+      <DeleteServiceOrder />
     ) : (
       <Navigate to="/login" />
     ),

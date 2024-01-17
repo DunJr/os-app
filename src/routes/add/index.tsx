@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { PageContainer, Title, PageContent } from "./styles";
+import {
+  PageContainer,
+  Title,
+  PageContent,
+  FormContainer,
+  FormGroup,
+  Label,
+  Input,
+  SubmitButton,
+  ResponseMessage,
+} from "./styles";
 import { Header } from "../../components/header";
 
 export const CreateServiceOrders: React.FC = () => {
@@ -63,10 +73,40 @@ export const CreateServiceOrders: React.FC = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
+      // Clear form data
+      setFormData({
+        customerName: "",
+        purchaseDate: "",
+        customerPhone: "",
+        olhoEsquerdoDP: "",
+        olhoDireitoDP: "",
+        longeODEsferico: "",
+        longeODCilindro: "",
+        longeODEixo: "",
+        longeOEEsferico: "",
+        longeOECilindro: "",
+        longeOEEixo: "",
+        pertoODEsferico: "",
+        pertoODCilindro: "",
+        pertoODEixo: "",
+        pertoOEEsferico: "",
+        pertoOECilindro: "",
+        pertoOEEixo: "",
+        addEsquerdo: "",
+        addDireito: "",
+        tratamentosLentes: "",
+        obs: "",
+      });
+
       const responseBody = await response.text();
       const responseData = responseBody ? JSON.parse(responseBody) : null;
 
       setResponse(JSON.stringify(responseData));
+
+      // Reset response message after a short delay (e.g., 3 seconds)
+      setTimeout(() => {
+        setResponse(null);
+      }, 3000); // Adjust the delay as needed
     } catch (error) {
       console.error("Error:", error);
 
@@ -78,230 +118,243 @@ export const CreateServiceOrders: React.FC = () => {
   };
 
   return (
-    <PageContent>
+    <>
       <Header />
-      <PageContainer>
-        <Title>Criar ordem de serviço</Title>
-        <form>
-          <h2>Informações do cliente</h2>
-          <div>
-            <label>
-              Nome do cliente:{" "}
-              <input
-                type="text"
-                name="customerName"
-                value={formData.customerName}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Data da compra:{" "}
-              <input
-                type="text"
-                name="purchaseDate"
-                value={formData.purchaseDate}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Contato do cliente:{" "}
-              <input
-                type="text"
-                name="customerPhone"
-                value={formData.customerPhone}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <h2>Informações do serviço</h2>
-          <div>
-            <div>
-              <label>
-                DP Olho esquerdo:{" "}
-                <input
-                  type="text"
-                  name="olhoEsquerdoDP"
-                  value={formData.olhoEsquerdoDP}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <label>
-                DP Olho direito:{" "}
-                <input
-                  type="text"
-                  name="olhoDireitoDP"
-                  value={formData.olhoDireitoDP}
-                  onChange={handleInputChange}
-                />
-              </label>
-            </div>
-            <div>
-              <h3>Longe</h3>
-              <div>
-                <h4>Olho direito</h4>
-                <label>
-                  Esferico:{" "}
-                  <input
-                    type="text"
-                    name="longeODEsferico"
-                    value={formData.longeODEsferico}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <label>
-                  Cilindro:{" "}
-                  <input
-                    type="text"
-                    name="longeODCilindro"
-                    value={formData.longeODCilindro}
-                    onChange={handleInputChange}
-                  />
-                </label>
-                <label>
-                  Eixo:{" "}
-                  <input
-                    type="text"
-                    name="longeODEixo"
-                    value={formData.longeODEixo}
-                    onChange={handleInputChange}
-                  />
-                </label>
-              </div>
+      <PageContent>
+        <PageContainer>
+          <Title>Criar ordem de serviço</Title>
+          <FormContainer>
+            <form>
+              <FormGroup>
+                <h2>Informações do cliente</h2>
+                <div>
+                  <Label>
+                    Nome do cliente:
+                    <Input
+                      type="text"
+                      name="customerName"
+                      value={formData.customerName}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                  <Label>
+                    Data da compra:
+                    <Input
+                      type="text"
+                      name="purchaseDate"
+                      value={formData.purchaseDate}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                  <Label>
+                    Contato do cliente:
+                    <Input
+                      type="text"
+                      name="customerPhone"
+                      value={formData.customerPhone}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                </div>
+              </FormGroup>
 
-              <div>
-                <h4>Olho esquerdo</h4>
-                <label>
-                  Esferico:{" "}
-                  <input
+              <FormGroup>
+                <div>
+                  <Label>
+                    DP Olho esquerdo:
+                    <Input
+                      type="text"
+                      name="olhoEsquerdoDP"
+                      value={formData.olhoEsquerdoDP}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                  <Label>
+                    DP Olho direito:
+                    <Input
+                      type="text"
+                      name="olhoDireitoDP"
+                      value={formData.olhoDireitoDP}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                </div>
+                <div>
+                  <h3>Longe</h3>
+                  <div>
+                    <h4>Olho direito</h4>
+                    <Label>
+                      Esferico:
+                      <Input
+                        type="text"
+                        name="longeODEsferico"
+                        value={formData.longeODEsferico}
+                        onChange={handleInputChange}
+                      />
+                    </Label>
+                    <Label>
+                      Cilindro:
+                      <Input
+                        type="text"
+                        name="longeODCilindro"
+                        value={formData.longeODCilindro}
+                        onChange={handleInputChange}
+                      />
+                    </Label>
+                    <Label>
+                      Eixo:
+                      <Input
+                        type="text"
+                        name="longeODEixo"
+                        value={formData.longeODEixo}
+                        onChange={handleInputChange}
+                      />
+                    </Label>
+                  </div>
+
+                  <div>
+                    <h4>Olho esquerdo</h4>
+                    <Label>
+                      Esferico:
+                      <Input
+                        type="text"
+                        name="longeOEEsferico"
+                        value={formData.longeOEEsferico}
+                        onChange={handleInputChange}
+                      />
+                    </Label>
+                    <Label>
+                      Cilindro:
+                      <Input
+                        type="text"
+                        name="longeOECilindro"
+                        value={formData.longeOECilindro}
+                        onChange={handleInputChange}
+                      />
+                    </Label>
+                    <Label>
+                      Eixo:
+                      <Input
+                        type="text"
+                        name="longeOEEixo"
+                        value={formData.longeOEEixo}
+                        onChange={handleInputChange}
+                      />
+                    </Label>
+                  </div>
+                </div>
+              </FormGroup>
+
+              <FormGroup>
+                <h3>Perto</h3>
+                <div>
+                  <h4>Olho direito</h4>
+                  <Label>
+                    Esferico:
+                    <Input
+                      type="text"
+                      name="pertoODEsferico"
+                      value={formData.pertoODEsferico}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                  <Label>
+                    Cilindro:
+                    <Input
+                      type="text"
+                      name="pertoODCilindro"
+                      value={formData.pertoODCilindro}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                  <Label>
+                    Eixo:
+                    <Input
+                      type="text"
+                      name="pertoODEixo"
+                      value={formData.pertoODEixo}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                </div>
+                <div>
+                  <h4>Olho Esquerdo</h4>
+                  <Label>
+                    Esferico:
+                    <Input
+                      type="text"
+                      name="pertoOEEsferico"
+                      value={formData.pertoOEEsferico}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                  <Label>
+                    Cilindro:
+                    <Input
+                      type="text"
+                      name="pertoOECilindro"
+                      value={formData.pertoOECilindro}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                  <Label>
+                    Eixo:
+                    <Input
+                      type="text"
+                      name="pertoOEEixo"
+                      value={formData.pertoOEEixo}
+                      onChange={handleInputChange}
+                    />
+                  </Label>
+                </div>
+              </FormGroup>
+
+              <FormGroup>
+                <h4>Adição</h4>
+                <Label>
+                  Olho esquerdo/direito:
+                  <Input
                     type="text"
-                    name="longeOEEsferico"
-                    value={formData.longeOEEsferico}
+                    name="addEsquerdo"
+                    value={formData.addEsquerdo}
                     onChange={handleInputChange}
                   />
-                </label>
-                <label>
-                  Cilindro:{" "}
-                  <input
+                </Label>
+              </FormGroup>
+
+              <FormGroup>
+                <h3>Informações Adicionais do Serviço</h3>
+                <Label>
+                  Tratamentos de Lentes:
+                  <Input
                     type="text"
-                    name="longeOECilindro"
-                    value={formData.longeOECilindro}
+                    name="tratamentosLentes"
+                    value={formData.tratamentosLentes}
                     onChange={handleInputChange}
                   />
-                </label>
-                <label>
-                  Eixo:{" "}
-                  <input
+                </Label>
+                <Label>
+                  Observações:
+                  <Input
                     type="text"
-                    name="longeOEEixo"
-                    value={formData.longeOEEixo}
+                    name="obs"
+                    value={formData.obs}
                     onChange={handleInputChange}
                   />
-                </label>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h3>Perto</h3>
-            <div>
-              <h4>Olho direito</h4>
-              <label>
-                Esferico:{" "}
-                <input
-                  type="text"
-                  name="pertoODEsferico"
-                  value={formData.pertoODEsferico}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <label>
-                Cilindro:{" "}
-                <input
-                  type="text"
-                  name="pertoODCilindro"
-                  value={formData.pertoODCilindro}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <label>
-                Eixo:{" "}
-                <input
-                  type="text"
-                  name="pertoODEixo"
-                  value={formData.pertoODEixo}
-                  onChange={handleInputChange}
-                />
-              </label>
-            </div>
-            <div>
-              <h4>Olho Esquerdo</h4>
-              <label>
-                Esferico:{" "}
-                <input
-                  type="text"
-                  name="pertoOEEsferico"
-                  value={formData.pertoOEEsferico}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <label>
-                Cilindro:{" "}
-                <input
-                  type="text"
-                  name="pertoOECilindro"
-                  value={formData.pertoOECilindro}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <label>
-                Eixo:{" "}
-                <input
-                  type="text"
-                  name="pertoOEEixo"
-                  value={formData.pertoOEEixo}
-                  onChange={handleInputChange}
-                />
-              </label>
-            </div>
-          </div>
-          <div>
-            <h4>Adição</h4>
-            <label>
-              Olho esquerdo/direito:{" "}
-              <input
-                type="text"
-                name="addEsquerdo"
-                value={formData.addEsquerdo}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <h3>Informações Adicionais do Serviço</h3>
-            <label>
-              Tratamentos de Lentes:{" "}
-              <input
-                type="text"
-                name="tratamentosLentes"
-                value={formData.tratamentosLentes}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Observações:{" "}
-              <input
-                type="text"
-                name="obs"
-                value={formData.obs}
-                onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <button type="button" onClick={handlePostRequest}>
-            Make POST Request
-          </button>
-          {response && <p>Response: {JSON.stringify(response)}</p>}
-        </form>
-      </PageContainer>
-    </PageContent>
+                </Label>
+              </FormGroup>
+
+              <SubmitButton type="button" onClick={handlePostRequest}>
+                Confirmar
+              </SubmitButton>
+
+              {response && (
+                <ResponseMessage>Ordem criada com sucesso</ResponseMessage>
+              )}
+            </form>
+          </FormContainer>
+        </PageContainer>
+      </PageContent>
+    </>
   );
 };

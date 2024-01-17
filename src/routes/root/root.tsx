@@ -13,16 +13,18 @@ export const Root = () => {
             </PageLink>
           </li>
           <li>
-            <PageLink href={`/CreateServiceOrders`}>
+            <PageLink href={`/createServiceOrders`}>
               Adicionar Ordem de serviço
             </PageLink>
           </li>
           <li>
-            <PageLink href={`/`}>Apagar Ordem de serviço</PageLink>
+            <PageLink href={`/editServiceOrder`}>
+              Editar Ordens de serviço
+            </PageLink>
           </li>
           <li>
-            <PageLink href={`/EditServiceOrder`}>
-              Editar Ordens de serviço
+            <PageLink href={`/deleteServiceOrder`}>
+              Apagar Ordem de serviço
             </PageLink>
           </li>
         </LinkList>
