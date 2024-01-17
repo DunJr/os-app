@@ -31,6 +31,9 @@ export const PageLink = styled.a`
   border-radius: 5px;
   border: 2px solid #2980b9; /* Border color */
   cursor: pointer;
+
+  width: 20rem;
+
   :hover {
     background-color: #2980b9; /* Button color on hover */
     color: #fff; /* Text color on hover */
