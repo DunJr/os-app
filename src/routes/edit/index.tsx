@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PageContainer, Title, PageContent } from "./styles";
+import { PageContainer, Title, PageContent, Form } from "./styles";
 import { Header } from "../../components/header";
 import { getToken } from "../../services/authService";
 
@@ -148,18 +148,18 @@ export const EditServiceOrder: React.FC = () => {
       <Header />
       <PageContainer>
         <Title>Editar ordem de serviço</Title>
-        <form action="">
-          Selecionar IS por id
+        <Form>
+          <h2>Selecionar OS por id</h2>
           <input type="text" onChange={handleIdSelection} />
           <button type="button" onClick={handleGetRequest}>
             Confirmar
           </button>
-        </form>
-        <form>
+        </Form>
+        <Form>
           <h2>Informações do cliente</h2>
           <div>
             <label>
-              Nome do cliente:{" "}
+              Nome do cliente:
               <input
                 type="text"
                 name="customerName"
@@ -168,7 +168,7 @@ export const EditServiceOrder: React.FC = () => {
               />
             </label>
             <label>
-              Data da compra:{" "}
+              Data da compra:
               <input
                 type="text"
                 name="purchaseDate"
@@ -177,7 +177,7 @@ export const EditServiceOrder: React.FC = () => {
               />
             </label>
             <label>
-              Contato do cliente:{" "}
+              Contato do cliente:
               <input
                 type="text"
                 name="customerPhone"
@@ -190,7 +190,7 @@ export const EditServiceOrder: React.FC = () => {
           <div>
             <div>
               <label>
-                DP Olho esquerdo:{" "}
+                DP Olho esquerdo:
                 <input
                   type="text"
                   name="olhoEsquerdoDP"
@@ -199,7 +199,7 @@ export const EditServiceOrder: React.FC = () => {
                 />
               </label>
               <label>
-                DP Olho direito:{" "}
+                DP Olho direito:
                 <input
                   type="text"
                   name="olhoDireitoDP"
@@ -213,7 +213,7 @@ export const EditServiceOrder: React.FC = () => {
               <div>
                 <h4>Olho direito</h4>
                 <label>
-                  Esferico:{" "}
+                  Esferico:
                   <input
                     type="text"
                     name="longeODEsferico"
@@ -222,7 +222,7 @@ export const EditServiceOrder: React.FC = () => {
                   />
                 </label>
                 <label>
-                  Cilindro:{" "}
+                  Cilindro:
                   <input
                     type="text"
                     name="longeODCilindro"
@@ -231,7 +231,7 @@ export const EditServiceOrder: React.FC = () => {
                   />
                 </label>
                 <label>
-                  Eixo:{" "}
+                  Eixo:
                   <input
                     type="text"
                     name="longeODEixo"
@@ -244,7 +244,7 @@ export const EditServiceOrder: React.FC = () => {
               <div>
                 <h4>Olho esquerdo</h4>
                 <label>
-                  Esferico:{" "}
+                  Esferico:
                   <input
                     type="text"
                     name="longeOEEsferico"
@@ -253,7 +253,7 @@ export const EditServiceOrder: React.FC = () => {
                   />
                 </label>
                 <label>
-                  Cilindro:{" "}
+                  Cilindro:
                   <input
                     type="text"
                     name="longeOECilindro"
@@ -262,7 +262,7 @@ export const EditServiceOrder: React.FC = () => {
                   />
                 </label>
                 <label>
-                  Eixo:{" "}
+                  Eixo:
                   <input
                     type="text"
                     name="longeOEEixo"
@@ -278,7 +278,7 @@ export const EditServiceOrder: React.FC = () => {
             <div>
               <h4>Olho direito</h4>
               <label>
-                Esferico:{" "}
+                Esferico:
                 <input
                   type="text"
                   name="pertoODEsferico"
@@ -287,7 +287,7 @@ export const EditServiceOrder: React.FC = () => {
                 />
               </label>
               <label>
-                Cilindro:{" "}
+                Cilindro:
                 <input
                   type="text"
                   name="pertoODCilindro"
@@ -296,7 +296,7 @@ export const EditServiceOrder: React.FC = () => {
                 />
               </label>
               <label>
-                Eixo:{" "}
+                Eixo:
                 <input
                   type="text"
                   name="pertoODEixo"
@@ -308,7 +308,7 @@ export const EditServiceOrder: React.FC = () => {
             <div>
               <h4>Olho Esquerdo</h4>
               <label>
-                Esferico:{" "}
+                Esferico:
                 <input
                   type="text"
                   name="pertoOEEsferico"
@@ -317,7 +317,7 @@ export const EditServiceOrder: React.FC = () => {
                 />
               </label>
               <label>
-                Cilindro:{" "}
+                Cilindro:
                 <input
                   type="text"
                   name="pertoOECilindro"
@@ -326,7 +326,7 @@ export const EditServiceOrder: React.FC = () => {
                 />
               </label>
               <label>
-                Eixo:{" "}
+                Eixo:
                 <input
                   type="text"
                   name="pertoOEEixo"
@@ -339,7 +339,7 @@ export const EditServiceOrder: React.FC = () => {
           <div>
             <h4>Adição</h4>
             <label>
-              Olho esquerdo/direito:{" "}
+              Olho esquerdo/direito:
               <input
                 type="text"
                 name="addEsquerdo"
@@ -351,7 +351,7 @@ export const EditServiceOrder: React.FC = () => {
           <div>
             <h3>Informações Adicionais do Serviço</h3>
             <label>
-              Tratamentos de Lentes:{" "}
+              Tratamentos de Lentes:
               <input
                 type="text"
                 name="tratamentosLentes"
@@ -360,7 +360,7 @@ export const EditServiceOrder: React.FC = () => {
               />
             </label>
             <label>
-              Observações:{" "}
+              Observações:
               <input
                 type="text"
                 name="obs"
@@ -370,9 +370,9 @@ export const EditServiceOrder: React.FC = () => {
             </label>
           </div>
           <button type="button" onClick={handlePostRequest}>
-            Make PUT Request
+            Confirmar
           </button>
-        </form>
+        </Form>
       </PageContainer>
     </PageContent>
   );
