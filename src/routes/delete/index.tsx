@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Header } from "../../components/header";
 import { Title, FormContainer, Input, Button, PageContent } from "./styles";
 import { getToken } from "../../services/authService";
+import { ResponseMessage } from "../add/styles";
 
 export const DeleteServiceOrder: React.FC = () => {
+  const [response, setResponse] = useState<string | null>(null);
   const [id, setId] = useState("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,13 +31,15 @@ export const DeleteServiceOrder: React.FC = () => {
         },
       });
 
-      if (response.ok) {
-        console.log("Service order deleted successfully");
-        // You can handle success, e.g., redirect to a different page
-      } else {
-        console.error("Failed to delete service order");
-        // Handle the error here
-      }
+      const responseBody = await response.text();
+      const responseData = responseBody ? JSON.parse(responseBody) : null;
+
+      setResponse(JSON.stringify(responseData));
+
+      // Reset response message after a short delay (e.g., 3 seconds)
+      setTimeout(() => {
+        setResponse(null);
+      }, 3000); // Adjust the delay as needed
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -52,6 +56,9 @@ export const DeleteServiceOrder: React.FC = () => {
           <Button type="button" onClick={handleDeleteRequest}>
             Delete
           </Button>
+          {response && (
+            <ResponseMessage>Ordem apagada com sucesso</ResponseMessage>
+          )}
         </FormContainer>
       </PageContent>
     </>
