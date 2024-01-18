@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { PageContainer, Title, PageContent, Form } from "./styles";
 import { Header } from "../../components/header";
 import { getToken } from "../../services/authService";
+import { ResponseMessage } from "../add/styles";
 
 export const EditServiceOrder: React.FC = () => {
+  const [response, setResponse] = useState<string | null>(null);
   const [id, setId] = useState<string | null>("");
   const [formData, setFormData] = useState({
     customerName: "",
@@ -129,6 +131,16 @@ export const EditServiceOrder: React.FC = () => {
         },
         body: JSON.stringify(formData),
       });
+
+      const responseBody = await response.text();
+      const responseData = responseBody ? JSON.parse(responseBody) : null;
+
+      setResponse(JSON.stringify(responseData));
+
+      // Reset response message after a short delay (e.g., 3 seconds)
+      setTimeout(() => {
+        setResponse(null);
+      }, 3000); // Adjust the delay as needed
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -372,6 +384,9 @@ export const EditServiceOrder: React.FC = () => {
           <button type="button" onClick={handlePostRequest}>
             Confirmar
           </button>
+          {response && (
+            <ResponseMessage>Ordem editada com sucesso</ResponseMessage>
+          )}
         </Form>
       </PageContainer>
     </PageContent>
